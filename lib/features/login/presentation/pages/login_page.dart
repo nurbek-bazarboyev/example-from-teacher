@@ -1,3 +1,8 @@
+import 'package:example_project/common/app_color.dart';
+import 'package:example_project/common/assets.dart';
+import 'package:example_project/common/constants.dart';
+import 'package:example_project/common/theme_notifier.dart';
+import 'package:example_project/common/widget/custom_text_field.dart';
 import 'package:example_project/features/login/presentation/bloc/login_button_bloc.dart';
 import 'package:example_project/main.dart';
 import 'package:flutter/material.dart';
@@ -15,15 +20,9 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController userNameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
-  bool hidePassword = true;
-  void showPasswordToggle(){
-    setState(() {
-      hidePassword = !hidePassword;
-    });
-  }
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+   Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(20),
@@ -31,49 +30,28 @@ class _LoginPageState extends State<LoginPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: 80,),
-            Center(child: SvgPicture.asset("assets/svg/login/Layer 2.svg",alignment: Alignment.center,)),
+            Center(child: SvgPicture.asset(Assets.images.logo,alignment: Alignment.center,)),
             SizedBox(height: 24,),
-            Text("Username",style: TextStyle(color: Color.fromRGBO(10, 30, 86, 1),fontSize: 16,fontWeight: FontWeight.w600),),
-            TextField(
-              controller: userNameController,
-              onChanged: (val){
-                context.read<LoginButtonBloc>().add(EnableLoginEvent(name: userNameController.text, password: passwordController.text));
-              },
-              decoration: InputDecoration(
+            Text("Username",style: TextStyle(color: AppColors().primaryText,fontSize: 16,fontWeight: FontWeight.w600),),
+            CustomTextField(
+                controller: userNameController,
                 hintText: "Username",
-                hintStyle: TextStyle(color: Colors.grey,fontWeight: FontWeight.w500),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                  borderSide: BorderSide(color: Colors.orange,width: 2)
-                ),
-                enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                    borderSide: BorderSide(color: Colors.grey)
-                )
-              ),
+                onChanged: (val){
+                  context.read<LoginButtonBloc>().add(EnableLoginEvent(name: userNameController.text, password: passwordController.text));
+                },
             ),
             SizedBox(height: 24,),
-            Text("Parol",style: TextStyle(color: Color.fromRGBO(10, 30, 86, 1),fontSize: 16,fontWeight: FontWeight.w600),),
-            TextField(
-              controller: passwordController,
-              obscureText: hidePassword,
-              onChanged: (val){
-                context.read<LoginButtonBloc>().add(EnableLoginEvent(name: userNameController.text, password: passwordController.text));
-              },
-              decoration: InputDecoration(
-                  hintText: "Parolni kiriting",
-                  hintStyle: TextStyle(color: Colors.grey,fontWeight: FontWeight.w500),
-                  suffixIcon: IconButton(onPressed: showPasswordToggle, icon: hidePassword ? Icon(CupertinoIcons.eye,color: Colors.orange,) : Icon(CupertinoIcons.eye_slash,color: Colors.orange,)),
-                  focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      borderSide: BorderSide(color: Colors.orange,width: 2)
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      borderSide: BorderSide(color: Colors.grey)
-                  )
-              ),
+            Text("Parol",style: TextStyle(color: AppColors().primaryText,fontSize: 16,fontWeight: FontWeight.w600),),
+
+            CustomTextField(
+                controller: passwordController,
+                hintText: "Parolni kiriting",
+                isPassword: true,
+                onChanged: (val){
+                  context.read<LoginButtonBloc>().add(EnableLoginEvent(name: userNameController.text, password: passwordController.text));
+                },
             ),
+
             SizedBox(height: 24,),
             // kirish button
             SizedBox(
@@ -83,10 +61,11 @@ class _LoginPageState extends State<LoginPage> {
                       builder: (context, state) {
                         final myState = state as LoginButtonPosition;
                         return ElevatedButton(
-                                      onPressed: myState.enabled ? (){} : null,
+                                      onPressed: myState.enabled ? (){
+                                      } : null,
                                       child: Text("Kirish",style: TextStyle(color: myState.enabled ? Colors.white : Colors.grey,fontSize: 16,fontWeight: FontWeight.w600),),
                                     style: ButtonStyle(
-                                      backgroundColor: WidgetStateProperty.all(myState.enabled ? Colors.orange : Colors.grey.shade300),
+                                      backgroundColor: WidgetStateProperty.all(myState.enabled ? AppColors().buttonColor : Colors.grey.shade300),
                                       shape: WidgetStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)))
                                     ),
                                   );

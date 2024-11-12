@@ -194,6 +194,7 @@ class _Images extends _AssetsHolder {
   const _Images() : super('assets/images');
 
   String get cardBackground => '$basePath/card_background.png';
+  String get logo => '$basePath/login/login_logo.svg';
 }
 
 class _Audios extends _AssetsHolder {

@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'theme_notifier.dart';
 
 abstract class OrderStatus {
@@ -8,6 +10,7 @@ abstract class OrderStatus {
   static const finish = 'finish';
 }
 
-late ThemeNotifier themeNotifier;
+late ThemeNotifier themeNotifier = ThemeNotifier(Brightness.light);
+// late ThemeNotifier themeNotifier; shunaqa holatda turgan edi
 
 // const appVersion = '1.0.4';

@@ -1,10 +1,12 @@
 import 'package:example_project/common/app_text_style.dart';
 import 'package:example_project/common/constants.dart';
+import 'package:example_project/common/theme_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pinput/pinput.dart';
 
 class AppColors {
+
   //device
   Color transparent = Colors.transparent;
   Color white = const Color.fromRGBO(255, 255, 255, 1);
